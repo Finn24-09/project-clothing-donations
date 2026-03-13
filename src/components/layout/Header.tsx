@@ -12,7 +12,13 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 glass-sm" style={{ borderRadius: '0 0 0.75rem 0.75rem' }}>
+    <header
+      className="sticky top-0 z-50 glass-sm"
+      style={{
+        borderRadius: menuOpen ? '0 0 0 0' : '0 0 0.75rem 0.75rem',
+        transition: 'border-radius 300ms ease-in-out',
+      }}
+    >
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group">
@@ -63,55 +69,76 @@ export default function Header() {
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden p-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-            aria-label="Menü öffnen"
+            aria-label={menuOpen ? 'Menü schließen' : 'Menü öffnen'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
           >
-            {menuOpen ? (
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-              </svg>
-            )}
+            <div className="relative w-5 h-5">
+              {/* Top bar */}
+              <span
+                className={`absolute left-0 h-0.5 w-5 bg-current rounded-full transition-all duration-300 origin-center ${
+                  menuOpen ? 'top-2.25 rotate-45' : 'top-1'
+                }`}
+              />
+              {/* Middle bar */}
+              <span
+                className={`absolute left-0 top-2.25 h-0.5 w-5 bg-current rounded-full transition-all duration-200 ${
+                  menuOpen ? 'opacity-0 scale-x-0' : 'opacity-100 scale-x-100'
+                }`}
+              />
+              {/* Bottom bar */}
+              <span
+                className={`absolute left-0 h-0.5 w-5 bg-current rounded-full transition-all duration-300 origin-center ${
+                  menuOpen ? 'top-2.25 -rotate-45' : 'top-3.5'
+                }`}
+              />
+            </div>
           </button>
         </div>
       </nav>
 
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="md:hidden absolute left-0 right-0 top-full mx-4 mt-1 bg-slate-900/95 border border-white/15 rounded-xl overflow-hidden z-50 shadow-xl">
-          <ul className="py-2">
-            {navLinks.map((link) => (
-              <li key={link.to}>
-                <NavLink
-                  to={link.to}
-                  end={link.to === '/'}
+      {/* Mobile menu — always rendered, animated via grid-rows trick */}
+      <div
+        id="mobile-menu"
+        className={`md:hidden absolute left-0 right-0 top-full grid transition-[grid-template-rows] duration-300 ease-in-out z-40 ${
+          menuOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+        }`}
+      >
+        {/* overflow-hidden is required for the grid-rows animation */}
+        <div className="overflow-hidden">
+          <div className="bg-slate-900/90 border-x border-b border-white/15 rounded-b-xl shadow-xl">
+            <ul className="py-2">
+              {navLinks.map((link) => (
+                <li key={link.to}>
+                  <NavLink
+                    to={link.to}
+                    end={link.to === '/'}
+                    onClick={() => setMenuOpen(false)}
+                    className={({ isActive }) =>
+                      `block px-4 py-3 text-sm font-medium transition-colors ${
+                        isActive
+                          ? 'text-sky-400 bg-white/10'
+                          : 'text-white/80 hover:text-white hover:bg-white/10'
+                      }`
+                    }
+                  >
+                    {link.label}
+                  </NavLink>
+                </li>
+              ))}
+              <li className="px-4 pt-2 pb-3">
+                <Link
+                  to="/donate"
                   onClick={() => setMenuOpen(false)}
-                  className={({ isActive }) =>
-                    `block px-4 py-3 text-sm font-medium transition-colors ${
-                      isActive
-                        ? 'text-sky-400 bg-white/10'
-                        : 'text-white/80 hover:text-white hover:bg-white/10'
-                    }`
-                  }
+                  className="flex items-center justify-center gap-1.5 bg-sky-500 hover:bg-sky-400 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-all duration-200 w-full"
                 >
-                  {link.label}
-                </NavLink>
+                  Jetzt spenden
+                </Link>
               </li>
-            ))}
-            <li className="px-4 pt-2 pb-3">
-              <Link
-                to="/donate"
-                onClick={() => setMenuOpen(false)}
-                className="flex items-center justify-center gap-1.5 bg-sky-500 hover:bg-sky-400 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-all duration-200 w-full"
-              >
-                Jetzt spenden
-              </Link>
-            </li>
-          </ul>
+            </ul>
+          </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }
