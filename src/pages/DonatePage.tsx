@@ -9,6 +9,7 @@ import {
 } from "../utils/sanitize";
 import { validateDonationForm } from "../utils/validate";
 import type { DonationFormInput, FormErrors } from "../utils/validate";
+import { submitDonation } from "../services/donationService";
 import GlassCard from "../components/ui/GlassCard";
 import Button from "../components/ui/Button";
 
@@ -83,7 +84,7 @@ export default function DonatePage() {
     return Object.keys(e).length === 0;
   }
 
-  function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!validate()) return;
 
@@ -102,6 +103,7 @@ export default function DonatePage() {
       }),
     };
 
+    await submitDonation(data);
     navigate("/confirm", { state: data });
   }
 
