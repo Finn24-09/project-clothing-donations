@@ -24,7 +24,7 @@ export default function Header() {
         <Link to="/" className="flex items-center gap-2 group">
           <span className="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center shadow-lg shadow-sky-500/30 group-hover:bg-sky-400 transition-colors">
             <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M 3 20 Q 5 12 12 9 Q 19 12 21 20 H 3 M 12 9 C 11 6 11.5 2.5 14 2 C 16 1.5 18 3 18 5 C 18 7 16.5 8 15 8" />
             </svg>
           </span>
           <span className="text-white font-bold text-lg tracking-tight">
