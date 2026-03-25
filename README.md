@@ -8,7 +8,7 @@ No data will be saved nor any real donation will be created.
 
 ## Description
 
-This project is a single-page application built with React 19, TypeScript, Vite 7, Tailwind CSS v4, and React Router v6. It features a multi-step donation form with client-side validation and sanitization, a glassmorphism design system, and fully responsive mobile-first layouts. The project follows a test-driven development approach using Mocha for utility-level unit tests.
+This project is a single-page application built with React 19, TypeScript, Vite 7, Tailwind CSS v4, and React Router DOM v7. It features a multi-step donation form with client-side validation and sanitization, a glassmorphism design system, and fully responsive mobile-first layouts. The project follows a test-driven development approach using Mocha for utility-level unit tests.
 
 ## Getting started
 
