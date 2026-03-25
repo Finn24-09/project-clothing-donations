@@ -36,3 +36,23 @@ npm test
 npm run build   # compile + bundle
 npm run preview # serve the build locally
 ```
+
+## Docker
+
+**Prerequisites:** Docker
+
+### Build the image
+
+```bash
+docker build -t project-clothing-donations:latest .
+```
+
+### Run the container
+
+```bash
+docker run -d --name clothing-donations-web -p 8080:80 project-clothing-donations:latest
+```
+
+The app is then available at [http://localhost:8080](http://localhost:8080).
+
+For production deployments it is recommended to run the container behind a reverse proxy that handles HTTPS termination.
