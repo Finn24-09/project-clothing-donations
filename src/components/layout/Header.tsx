@@ -1,12 +1,7 @@
 import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-
-const navLinks = [
-  { to: '/', label: 'Startseite' },
-  { to: '/donate', label: 'Spenden' },
-  { to: '/about', label: 'Über uns' },
-  { to: '/locations', label: 'Standorte' },
-];
+import LogoIcon from '../ui/LogoIcon';
+import { navLinks } from './navLinks';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -23,9 +18,7 @@ export default function Header() {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group">
           <span className="w-8 h-8 rounded-lg bg-sky-500 flex items-center justify-center shadow-lg shadow-sky-500/30 group-hover:bg-sky-400 transition-colors">
-            <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M 3 20 Q 5 12 12 9 Q 19 12 21 20 H 3 M 12 9 C 11 6 11.5 2.5 14 2 C 16 1.5 18 3 18 5 C 18 7 16.5 8 15 8" />
-            </svg>
+            <LogoIcon />
           </span>
           <span className="text-white font-bold text-lg tracking-tight">
             Cloth<span className="text-sky-400">Care</span>
